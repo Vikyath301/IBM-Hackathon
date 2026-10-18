@@ -1,7 +1,7 @@
 """
 Recommendation Agent (Member 4).
 Ranks actionable interventions based on ML risk scores, financial impact,
-and explicit, documented simulation assumptions.
+feasibility, turnaround velocity, and explicit ROI trade-offs.
 """
 from typing import List
 import sys
@@ -19,7 +19,7 @@ class RecommendationAgent:
     ) -> RecommendationResult:
         """
         Evaluates potential mitigation actions using multi-criteria trade-offs:
-        Protected value vs expedite cost vs feasibility.
+        Protected value vs expedite cost vs turnaround vs feasibility.
         """
         if not risk.is_high_risk:
             standard_action = ActionOption(
@@ -29,6 +29,8 @@ class RecommendationAgent:
                 feasibility="High (100%)",
                 estimated_expedite_cost=0.0,
                 protected_revenue=txn.order_value,
+                roi_ratio="Baseline (1.0x)",
+                turnaround_days=risk.normal_predicted_days,
                 simulation_notes="Baseline: No corrective surcharge needed. Telemetry remains active."
             )
             return RecommendationResult(recommended_actions=[standard_action], top_action=standard_action)
@@ -36,8 +38,10 @@ class RecommendationAgent:
         actions: List[ActionOption] = []
 
         # Option 1: Volume split to verified alternative supplier / secondary fulfillment hub
-        cost_split = round(txn.order_value * 0.035, 2)
+        cost_split = max(45.0, round(txn.order_value * 0.035, 2))
         prot_split = round(txn.order_value * 0.85, 2)
+        roi_split = f"{round(prot_split / cost_split, 1)}x"
+        turnaround_split = max(1, risk.normal_predicted_days - 2)
         actions.append(
             ActionOption(
                 rank=1,
@@ -46,13 +50,17 @@ class RecommendationAgent:
                 feasibility="High (Verified contract buffer)",
                 estimated_expedite_cost=cost_split,
                 protected_revenue=prot_split,
+                roi_ratio=roi_split,
+                turnaround_days=turnaround_split,
                 simulation_notes="Assumes secondary supplier contracted SLA buffer of 48h with 3.5% allocation surcharge."
             )
         )
 
         # Option 2: Carrier mode upgrade to expedited Air freight
-        cost_air = round(txn.order_value * 0.065, 2)
+        cost_air = max(75.0, round(txn.order_value * 0.065, 2))
         prot_air = txn.order_value
+        roi_air = f"{round(prot_air / cost_air, 1)}x"
+        turnaround_air = risk.fastest_predicted_days
         actions.append(
             ActionOption(
                 rank=2,
@@ -61,13 +69,17 @@ class RecommendationAgent:
                 feasibility="Medium (Airport cargo cutoff dependent)",
                 estimated_expedite_cost=cost_air,
                 protected_revenue=prot_air,
+                roi_ratio=roi_air,
+                turnaround_days=turnaround_air,
                 simulation_notes=f"Assumes air courier freight rate parity (+6.5% surcharge) ensuring arrival within {risk.fastest_predicted_days} days."
             )
         )
 
         # Option 3: Regional buffer stock allocation
-        cost_stock = 45.0
+        cost_stock = max(45.0, round(txn.order_value * 0.015, 2))
         prot_stock = round(txn.order_value * 0.50, 2)
+        roi_stock = f"{round(prot_stock / cost_stock, 1)}x"
+        turnaround_stock = max(1, risk.fastest_predicted_days)
         actions.append(
             ActionOption(
                 rank=3,
@@ -76,6 +88,8 @@ class RecommendationAgent:
                 feasibility="High (Hub stock verified)",
                 estimated_expedite_cost=cost_stock,
                 protected_revenue=prot_stock,
+                roi_ratio=roi_stock,
+                turnaround_days=turnaround_stock,
                 simulation_notes="Assumes availability of 10% safety stock buffer at central distribution warehouse."
             )
         )

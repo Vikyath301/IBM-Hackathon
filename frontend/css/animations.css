@@ -1,0 +1,113 @@
+/**
+ * ChainSentinel Animations & Micro-Interactions
+ */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 1.6s infinite ease-in-out;
+}
+
+.pulse-green {
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+}
+
+.pulse-red {
+  background: var(--accent-red);
+  box-shadow: 0 0 12px var(--accent-red);
+}
+
+.pulse-cyan {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+@keyframes glowSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes nodeActivePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 216, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 216, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 216, 255, 0);
+  }
+}
+
+.node-animating {
+  animation: nodeActivePulse 1.2s infinite;
+}
+
+/* Toast Notification */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  color: var(--text-bright);
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(120%);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast.success {
+  border-color: rgba(16, 185, 129, 0.6);
+}
+
+.toast.critical {
+  border-color: rgba(244, 63, 94, 0.6);
+}
+
+/* Monospace Blinking Cursor */
+.cursor-blink::after {
+  content: '▋';
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--accent-cyan);
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

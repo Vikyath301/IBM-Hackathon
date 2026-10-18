@@ -13,6 +13,7 @@ from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 # Add current directory to path
@@ -35,6 +36,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static asset routes
+base_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_dir = os.path.join(base_dir, '..', 'frontend')
+static_dir = os.path.join(base_dir, 'static')
+target_ui = frontend_dir if os.path.exists(frontend_dir) else static_dir
+
+if os.path.exists(os.path.join(target_ui, 'css')):
+    app.mount("/css", StaticFiles(directory=os.path.join(target_ui, 'css')), name="css")
+if os.path.exists(os.path.join(target_ui, 'js')):
+    app.mount("/js", StaticFiles(directory=os.path.join(target_ui, 'js')), name="js")
+
 # In-memory stores for runtime demonstration
 recent_transactions: List[Dict[str, Any]] = []
 active_alerts: List[Dict[str, Any]] = []
@@ -51,9 +63,12 @@ class ActionExecutionRequest(BaseModel):
 @app.get("/dashboard")
 def get_dashboard():
     """Serves the live interactive ChainSentinel Supply Chain Command Center."""
-    html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html')
-    if os.path.exists(html_path):
-        return FileResponse(html_path)
+    for candidate in [
+        os.path.join(frontend_dir, 'index.html'),
+        os.path.join(static_dir, 'index.html')
+    ]:
+        if os.path.exists(candidate):
+            return FileResponse(candidate)
     return {"message": "Dashboard HTML not found", "docs": "/docs"}
 
 @app.get("/health")
@@ -256,4 +271,5 @@ def generate_audit_report(order_id: int):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
+    src_dir = os.path.dirname(os.path.abspath(__file__))
+    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True, app_dir=src_dir)

@@ -51,6 +51,8 @@ class ActionOption(BaseModel):
     feasibility: str
     estimated_expedite_cost: float
     protected_revenue: float
+    roi_ratio: Optional[str] = "24.5x"
+    turnaround_days: Optional[int] = 2
     simulation_notes: str = Field(default="Estimated based on historical carrier rates and inventory hub buffers")
 
 class RecommendationResult(BaseModel):
@@ -66,8 +68,10 @@ class DisruptionAnalysisResponse(BaseModel):
     order_id: int
     product_name: str
     category_name: str
+    customer_country: str = Field(default="EE. UU.", description="Origin Country")
     order_country: str
     shipping_mode: str
+    scheduled_days: int = Field(default=4, description="Contractual shipping SLA days")
     order_value: float
     detection: AnomalyDetectionResult
     risk: RiskAssessmentResult

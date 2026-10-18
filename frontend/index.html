@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChainSentinel | IBM Z Multi-Agent Supply Chain Intelligence</title>
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS for Dark Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Modular CSS Architecture -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-icon">🛡️</div>
+      <div class="brand-title">
+        <h1 class="gradient-text">ChainSentinel</h1>
+        <span class="brand-subtitle">IBM Z Multi-Agent Supply Chain Disruption Intelligence</span>
+      </div>
+    </div>
+
+    <!-- Mainframe Telemetry Badges -->
+    <div class="header-telemetry">
+      <div class="telemetry-badge active-green" title="Operating natively on IBM LinuxONE hardware">
+        <div class="pulse-dot pulse-green"></div>
+        <span>IBM LinuxONE (s390x) Connected</span>
+      </div>
+      <div class="telemetry-badge active-cyan" title="Continuous Change Data Capture stream from Db2">
+        <div class="pulse-dot pulse-cyan"></div>
+        <span>Db2 for z/OS Live CDC: ACTIVE</span>
+      </div>
+      <div class="telemetry-badge" title="LangGraph state graph active">
+        <span>LangGraph Orchestrator: ARMED</span>
+      </div>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <button id="btn-custom-sim" class="btn btn-outline">
+        <span>🔍 Custom Simulator</span>
+      </button>
+      <button id="btn-toggle-stream" class="btn btn-primary">
+        <span>▶ Start Live IBM Z Stream</span>
+      </button>
+      <button id="btn-simulate-slide8" class="btn btn-critical">
+        <span>⚡ Simulate Slide 8 ($1.9M Disruption)</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Ribbon & Key Metrics -->
+    <section class="hero-section">
+      <div class="hero-banner">
+        <div>
+          <h2>Autonomous Resilience Command Center</h2>
+          <p>Real-time disruption prediction, ML duration bounds, and closed-loop mitigation committed to Db2 for z/OS.</p>
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">
+          Inference Engine Latency: <strong id="pipeline-latency-val" style="color: var(--accent-cyan);" class="mono">11.4 ms</strong>
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Ingested Transactions</span>
+            <span class="kpi-icon">⚡</span>
+          </div>
+          <div class="kpi-value mono" id="kpi-total-ingested">15,482</div>
+          <div class="kpi-footer">
+            <span class="kpi-pill cyan">Db2 Stream</span>
+            <span>Real-time ingestion rate: 420 events/sec</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Disruptions Flagged</span>
+            <span class="kpi-icon">⚠️</span>
+          </div>
+          <div class="kpi-value mono" style="color: var(--accent-red);" id="kpi-disruptions-count">43</div>
+          <div class="kpi-footer">
+            <span class="kpi-pill red">Critical SLA</span>
+            <span>Early warnings (>36h prior to stockout)</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Dollar-at-Risk Identified</span>
+            <span class="kpi-icon">💰</span>
+          </div>
+          <div class="kpi-value mono gradient-critical" id="kpi-dollar-risk">$2,295,243</div>
+          <div class="kpi-footer">
+            <span class="kpi-pill red">Capital Exposure</span>
+            <span>Aggregated across high-risk corridors</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Protected Capital</span>
+            <span class="kpi-icon">🛡️</span>
+          </div>
+          <div class="kpi-value mono" style="color: var(--accent-green);">$1,900,000</div>
+          <div class="kpi-footer">
+            <span class="kpi-pill green">98.4% Protected</span>
+            <span>Average mitigation ROI: 35.4x</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Multi-Agent Orchestration Flow Graph -->
+    <section class="agent-flow-container">
+      <div class="flow-header">
+        <div class="flow-title">
+          <span style="font-size: 18px;">🧠</span>
+          <h3>LangGraph Multi-Agent Orchestration Chain</h3>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">
+          State Graph Execution Protocol: <span style="color: var(--accent-cyan); font-weight: 600;">Deterministic Sequential Flywheel</span>
+        </div>
+      </div>
+
+      <div class="flow-steps">
+        <!-- Node 1: Detection Agent -->
+        <div class="agent-node" id="node-detection">
+          <div class="node-top">
+            <span class="node-badge">Stage 1</span>
+            <div class="node-status-dot"></div>
+          </div>
+          <div class="node-name">Detection Agent</div>
+          <div class="node-role">Operational Anomaly Triage</div>
+          <div class="node-meta">
+            <span id="det-agent-status">NORMAL</span>
+            <span>~2.1 ms</span>
+          </div>
+        </div>
+
+        <div class="node-arrow">➔</div>
+
+        <!-- Node 2: Risk Agent (ML) -->
+        <div class="agent-node" id="node-risk">
+          <div class="node-top">
+            <span class="node-badge" style="background: rgba(244, 63, 94, 0.15); color: var(--accent-red);">Stage 2</span>
+            <div class="node-status-dot pulse-red"></div>
+          </div>
+          <div class="node-name">Risk Agent</div>
+          <div class="node-role">XGBoost & Duration ML</div>
+          <div class="node-meta">
+            <span id="risk-agent-status" style="color: var(--accent-red); font-weight: 700;">87.0% CRITICAL</span>
+            <span>~3.4 ms</span>
+          </div>
+        </div>
+
+        <div class="node-arrow">➔</div>
+
+        <!-- Node 3: Recommendation Agent -->
+        <div class="agent-node" id="node-recommendation">
+          <div class="node-top">
+            <span class="node-badge">Stage 3</span>
+            <div class="node-status-dot"></div>
+          </div>
+          <div class="node-name">Recommendation Agent</div>
+          <div class="node-role">Pareto Optimization & ROI</div>
+          <div class="node-meta">
+            <span style="color: var(--accent-green);">3 Ranked Actions</span>
+            <span>~2.8 ms</span>
+          </div>
+        </div>
+
+        <div class="node-arrow">➔</div>
+
+        <!-- Node 4: Explanation Agent -->
+        <div class="agent-node" id="node-explanation">
+          <div class="node-top">
+            <span class="node-badge" style="background: rgba(192, 132, 252, 0.15); color: #c084fc;">Stage 4</span>
+            <div class="node-status-dot" style="background: #c084fc; box-shadow: 0 0 8px #c084fc;"></div>
+          </div>
+          <div class="node-name">Explanation Agent</div>
+          <div class="node-role">IBM Granite Synthesis (s390x)</div>
+          <div class="node-meta">
+            <span>Natural Rationale</span>
+            <span>~2.9 ms</span>
+          </div>
+        </div>
+
+        <div class="node-arrow">➔</div>
+
+        <!-- Node 5: Closed-Loop Commit -->
+        <div class="agent-node" id="node-commit">
+          <div class="node-top">
+            <span class="node-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green);">Stage 5</span>
+            <div class="node-status-dot"></div>
+          </div>
+          <div class="node-name">z/OS Connect Gateway</div>
+          <div class="node-role">Db2 ACID Transaction Commit</div>
+          <div class="node-meta">
+            <span style="color: var(--accent-green);">RC=0000 READY</span>
+            <span>~1.2 ms</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Two-Column Stage -->
+    <div class="main-stage">
+      
+      <!-- Left Column: Disruption Hero Card -->
+      <div class="disruption-card">
+        <div class="card-header-bar">
+          <div class="card-title-block">
+            <span class="order-pill" id="inspect-order-id">#4471</span>
+            <div>
+              <h3 id="inspect-product-name" style="font-size: 18px;">Tier-1 Enterprise Server Modules</h3>
+              <span id="inspect-category-subtitle" style="font-size: 12px; color: var(--text-muted);">Tier-1 Electronics | High-Priority Capital Inventory</span>
+            </div>
+          </div>
+          <div>
+            <button id="btn-view-audit" class="btn btn-outline" style="padding: 6px 14px; font-size: 12px;">
+              <span>📄 View Audit Dossier</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Key Metrics Grid -->
+        <div class="disruption-grid">
+          <div class="stat-cell">
+            <div class="stat-cell-label">Late Delivery Risk</div>
+            <div class="stat-cell-val critical" id="inspect-risk-prob">87.0%</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-cell-label">Dollar-at-Risk</div>
+            <div class="stat-cell-val critical" id="inspect-dollar-risk">$1,700,000.00</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-cell-label">Order Total Value</div>
+            <div class="stat-cell-val cyan" id="inspect-order-val">$1,900,000.00</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-cell-label">Contract SLA</div>
+            <div class="stat-cell-val" style="color: #fff;" id="inspect-scheduled-days">4 Days (SLA)</div>
+          </div>
+        </div>
+
+        <!-- Interactive Route Corridor Map -->
+        <div id="leaflet-map"></div>
+
+        <!-- Duration Comparison Gauge -->
+        <div id="duration-gauge-box" style="margin-bottom: 20px;"></div>
+
+        <!-- Dynamic SHAP Feature Drivers -->
+        <div class="drivers-container">
+          <h4>
+            <span>Model Explainability: Feature Attributions</span>
+            <span style="font-size: 11px; color: var(--accent-cyan); font-weight: 500;">SHAP Contribution Weights</span>
+          </h4>
+          <div id="shap-drivers-list"></div>
+        </div>
+
+        <!-- IBM Granite Explanation Box -->
+        <div class="granite-box">
+          <div class="granite-header">
+            <div class="granite-tag">
+              <span>✦</span>
+              <span>IBM Granite Foundation Model (s390x Native)</span>
+            </div>
+            <span class="mono" style="font-size: 11px; color: var(--text-muted);">Granite 3.1 8B Instruct</span>
+          </div>
+          <p id="granite-explanation-text" class="granite-text cursor-blink"></p>
+        </div>
+
+        <!-- Direct Approve & Execute via z/OS Connect API -->
+        <div style="display: flex; justify-content: flex-end; gap: 12px;">
+          <button id="btn-commit-action" class="btn btn-critical" style="padding: 12px 24px; font-size: 14px;">
+            <span>✓ Approve & Commit Mitigation via z/OS Connect API</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Prescriptive Mitigation Options -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-size: 18px;">Recommended Mitigation Interventions</h3>
+          <span style="font-size: 12px; color: var(--accent-green); font-weight: 600;">Ranked by Net Protected ROI</span>
+        </div>
+
+        <!-- Action Cards Container -->
+        <div id="action-cards-container" class="actions-container"></div>
+      </div>
+    </div>
+
+    <!-- Secondary Stage: Live Db2 Transaction Stream -->
+    <section class="stream-section">
+      <div class="stream-header">
+        <div>
+          <h3 style="font-size: 18px;">Live IBM Z Db2 Transaction Ingestion Stream</h3>
+          <p style="font-size: 13px; color: var(--text-secondary);">Streaming from Db2 for z/OS through IBM Data Gate / Kafka CDC bridge.</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <span class="telemetry-badge active-green">
+            <span class="pulse-dot pulse-green"></span>
+            <span>CDC Replication: 0.8s Latency</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="stream-table-wrap">
+        <table class="stream-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product SKU / Category</th>
+              <th>Route Corridor</th>
+              <th>Carrier Mode</th>
+              <th>Amount ($)</th>
+              <th>Predicted Risk</th>
+              <th>Alert Status</th>
+            </tr>
+          </thead>
+          <tbody id="stream-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mainframe Commit Terminal Modal -->
+  <div class="modal-overlay" id="modal-terminal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">🖥️</span>
+          <h3 style="font-size: 16px; color: #fff;">IBM Z Mainframe 3270 / z/OS Connect REST Protocol</h3>
+        </div>
+        <button class="modal-close" id="close-terminal-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="terminal-screen" id="terminal-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compliance & Audit Dossier Modal -->
+  <div class="modal-overlay" id="modal-audit-report">
+    <div class="modal-box" style="max-width: 760px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">📋</span>
+          <h3 style="font-size: 16px; color: #fff;">IBM Z Enterprise Compliance & Multi-Agent Audit Dossier</h3>
+        </div>
+        <button class="modal-close" id="close-audit-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="audit-report-body"></div>
+    </div>
+  </div>
+
+  <!-- Custom Order Simulator Modal -->
+  <div class="modal-overlay" id="modal-custom-sim">
+    <div class="modal-box" style="max-width: 620px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 18px;">⚙️</span>
+          <h3 style="font-size: 16px; color: #fff;">Custom Transaction Disruption Simulator</h3>
+        </div>
+        <button class="modal-close" id="close-custom-sim">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="custom-order-form" style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Order ID</label>
+              <input type="number" name="order_id" value="9924" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+            </div>
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Product Category</label>
+              <select name="category_name" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+                <option value="Electronics" selected>Electronics</option>
+                <option value="Computers">Computers</option>
+                <option value="Sports">Sports</option>
+                <option value="Footwear">Footwear</option>
+                <option value="Consumer Goods">Consumer Goods</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 12px; color: var(--text-secondary);">Product SKU / Item Name</label>
+            <input type="text" name="product_name" value="Custom Semiconductor Accelerator Blade" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Customer Country (Origin)</label>
+              <select name="customer_country" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+                <option value="EE. UU." selected>EE. UU. (USA)</option>
+                <option value="Canada">Canada</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="Mexico">Mexico</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Order Country (Destination)</label>
+              <select name="order_country" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+                <option value="France" selected>France</option>
+                <option value="Germany">Germany</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Japan">Japan</option>
+                <option value="United States">United States</option>
+                <option value="India">India</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Carrier Shipping Mode</label>
+              <select name="shipping_mode" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+                <option value="Standard Class" selected>Standard Class (Ground)</option>
+                <option value="Second Class">Second Class</option>
+                <option value="First Class">First Class (Air Priority)</option>
+                <option value="Same Day">Same Day Express</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Order Region</label>
+              <select name="order_region" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+                <option value="Western Europe" selected>Western Europe</option>
+                <option value="North America">North America</option>
+                <option value="Eastern Asia">Eastern Asia</option>
+                <option value="Central America">Central America</option>
+                <option value="South Asia">South Asia</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;">
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Contract SLA (Days)</label>
+              <input type="number" name="scheduled_days" value="4" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+            </div>
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Quantity (Units)</label>
+              <input type="number" name="order_item_quantity" value="10" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+            </div>
+            <div>
+              <label style="font-size: 12px; color: var(--text-secondary);">Total Value ($)</label>
+              <input type="number" step="0.01" name="order_value" value="45000.00" style="width: 100%; padding: 8px 12px; background: rgba(11, 17, 32, 0.9); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm);">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" style="padding: 10px 22px;">
+              <span>⚡ Execute LangGraph Multi-Agent Analysis</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Leaflet Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Modular Frontend JS -->
+  <script src="js/charts.js"></script>
+  <script src="js/agents.js"></script>
+  <script src="js/stream.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+client_id,client_name,client_tier,primary_region,industry,credit_limit_usd,risk_tolerance,contact_email,account_status,zos_cust_id
+1001,BMW Group Central Parts #12,Tier-2 Strategic,Western Europe,Automotive,25000000,Flexible,ops-1001@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1001
+1002,BMW Group Central Parts #13,Tier-3 Commercial,Eastern Asia,Semiconductors,1500000,Low (Zero-Disruption SLA),ops-1002@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1002
+1003,Kyocera Components Global #14,Tier-1 Enterprise,Central America,Aerospace,25000000,Medium (Standard SLA),ops-1003@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1003
+1004,Dassault Systèmes AI #15,Tier-1 Enterprise,Central America,Aerospace,5000000,Low (Zero-Disruption SLA),ops-1004@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1004
+1005,Hitachi Rail Freight #16,Tier-2 Strategic,Western Europe,Semiconductors,25000000,Low (Zero-Disruption SLA),ops-1005@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1005
+1006,Honeywell Aerospace Parts #17,Tier-2 Strategic,Eastern Asia,Automotive,10000000,Flexible,ops-1006@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1006
+1007,Kyocera Components Global #18,Tier-2 Strategic,Western Europe,Aerospace,25000000,Medium (Standard SLA),ops-1007@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1007
+1008,Kyocera Components Global #19,Tier-1 Enterprise,Central America,Aerospace,10000000,Medium (Standard SLA),ops-1008@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1008
+1009,Philips Healthcare Supply #20,Tier-1 Enterprise,Central America,Semiconductors,25000000,Medium (Standard SLA),ops-1009@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1009
+1010,ASML Lithography Parts #21,Tier-2 Strategic,North America,Cloud Systems,25000000,Low (Zero-Disruption SLA),ops-1010@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1010
+1011,Kyocera Components Global #22,Tier-2 Strategic,Eastern Asia,Healthcare,25000000,Medium (Standard SLA),ops-1011@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1011
+1012,Sony Semiconductor EU #23,Tier-3 Commercial,North America,Automotive,5000000,Flexible,ops-1012@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1012
+1013,Lufthansa Cargo Spares #24,Tier-3 Commercial,North America,Healthcare,10000000,Medium (Standard SLA),ops-1013@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1013
+1014,Dassault Systèmes AI #25,Tier-2 Strategic,Central America,Cloud Systems,5000000,Flexible,ops-1014@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1014
+1015,Pfizer Cold Chain Solutions #26,Tier-1 Enterprise,Western Europe,Aerospace,25000000,Flexible,ops-1015@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1015
+1016,STMicroelectronics SAS #27,Tier-1 Enterprise,Central America,Healthcare,25000000,Medium (Standard SLA),ops-1016@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1016
+1017,Apple Logistics EMEA #28,Tier-2 Strategic,Western Europe,Aerospace,1500000,Low (Zero-Disruption SLA),ops-1017@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1017
+1018,Dassault Systèmes AI #29,Tier-3 Commercial,Central America,Semiconductors,5000000,Low (Zero-Disruption SLA),ops-1018@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1018
+1019,Schneider Electric Industrial #30,Tier-2 Strategic,North America,Aerospace,1500000,Low (Zero-Disruption SLA),ops-1019@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1019
+1020,Siemens Energy Logistics #1,Tier-1 Enterprise,Eastern Asia,Healthcare,25000000,Flexible,ops-1020@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1020
+1021,ASML Lithography Parts #2,Tier-2 Strategic,North America,Healthcare,25000000,Flexible,ops-1021@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1021
+1022,Philips Healthcare Supply #3,Tier-3 Commercial,Eastern Asia,Semiconductors,25000000,Low (Zero-Disruption SLA),ops-1022@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1022
+1023,STMicroelectronics SAS #4,Tier-2 Strategic,Central America,Aerospace,10000000,Low (Zero-Disruption SLA),ops-1023@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1023
+1024,Honeywell Aerospace Parts #5,Tier-2 Strategic,Eastern Asia,Semiconductors,5000000,Medium (Standard SLA),ops-1024@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1024
+1025,Hitachi Rail Freight #6,Tier-2 Strategic,Central America,Cloud Systems,25000000,Low (Zero-Disruption SLA),ops-1025@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1025
+1026,Dassault Systèmes AI #7,Tier-2 Strategic,Eastern Asia,Cloud Systems,1500000,Flexible,ops-1026@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1026
+1027,Philips Healthcare Supply #8,Tier-2 Strategic,North America,Aerospace,5000000,Flexible,ops-1027@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1027
+1028,Apple Logistics EMEA #9,Tier-3 Commercial,Western Europe,Healthcare,5000000,Low (Zero-Disruption SLA),ops-1028@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1028
+1029,Pfizer Cold Chain Solutions #10,Tier-3 Commercial,Eastern Asia,Cloud Systems,5000000,Low (Zero-Disruption SLA),ops-1029@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1029
+1030,Dassault Systèmes AI #11,Tier-1 Enterprise,Central America,Healthcare,10000000,Low (Zero-Disruption SLA),ops-1030@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1030
+1031,Kyocera Components Global #12,Tier-2 Strategic,Eastern Asia,Healthcare,5000000,Low (Zero-Disruption SLA),ops-1031@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1031
+1032,Bosch Continental Auto #13,Tier-2 Strategic,North America,Semiconductors,1500000,Low (Zero-Disruption SLA),ops-1032@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1032
+1033,Hitachi Rail Freight #14,Tier-2 Strategic,North America,Healthcare,1500000,Low (Zero-Disruption SLA),ops-1033@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1033
+1034,ABB Robotics & Automation #15,Tier-2 Strategic,North America,Aerospace,25000000,Flexible,ops-1034@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1034
+1035,Schneider Electric Industrial #16,Tier-2 Strategic,Western Europe,Aerospace,5000000,Low (Zero-Disruption SLA),ops-1035@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1035
+1036,Schneider Electric Industrial #17,Tier-1 Enterprise,North America,Healthcare,25000000,Low (Zero-Disruption SLA),ops-1036@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1036
+1037,TSMC European Foundry #18,Tier-2 Strategic,Western Europe,Automotive,5000000,Medium (Standard SLA),ops-1037@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1037
+1038,Apple Logistics EMEA #19,Tier-2 Strategic,Eastern Asia,Aerospace,5000000,Low (Zero-Disruption SLA),ops-1038@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1038
+1039,Infineon Power Systems #20,Tier-2 Strategic,Central America,Cloud Systems,1500000,Medium (Standard SLA),ops-1039@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1039
+1040,Sony Semiconductor EU #21,Tier-2 Strategic,Central America,Automotive,25000000,Flexible,ops-1040@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1040
+1041,Dassault Systèmes AI #22,Tier-2 Strategic,Western Europe,Healthcare,10000000,Medium (Standard SLA),ops-1041@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1041
+1042,Thales Avionics Systems #23,Tier-1 Enterprise,North America,Automotive,10000000,Low (Zero-Disruption SLA),ops-1042@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1042
+1043,Lufthansa Cargo Spares #24,Tier-2 Strategic,Central America,Healthcare,5000000,Medium (Standard SLA),ops-1043@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1043
+1044,Infineon Power Systems #25,Tier-3 Commercial,North America,Automotive,10000000,Low (Zero-Disruption SLA),ops-1044@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1044
+1045,Siemens Energy Logistics #26,Tier-2 Strategic,Central America,Semiconductors,5000000,Flexible,ops-1045@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1045
+1046,Apple Logistics EMEA #27,Tier-2 Strategic,North America,Healthcare,10000000,Medium (Standard SLA),ops-1046@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1046
+1047,Thales Avionics Systems #28,Tier-1 Enterprise,Eastern Asia,Cloud Systems,5000000,Medium (Standard SLA),ops-1047@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1047
+1048,BMW Group Central Parts #29,Tier-2 Strategic,Eastern Asia,Aerospace,1500000,Low (Zero-Disruption SLA),ops-1048@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1048
+1049,Honeywell Aerospace Parts #30,Tier-1 Enterprise,North America,Aerospace,10000000,Low (Zero-Disruption SLA),ops-1049@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1049
+1050,Airbus Global Defense #1,Tier-2 Strategic,Western Europe,Healthcare,5000000,Flexible,ops-1050@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1050
+1051,Schneider Electric Industrial #2,Tier-1 Enterprise,Western Europe,Healthcare,10000000,Low (Zero-Disruption SLA),ops-1051@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1051
+1052,ABB Robotics & Automation #3,Tier-2 Strategic,North America,Healthcare,25000000,Medium (Standard SLA),ops-1052@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1052
+1053,Dassault Systèmes AI #4,Tier-3 Commercial,North America,Aerospace,5000000,Medium (Standard SLA),ops-1053@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1053
+1054,Pfizer Cold Chain Solutions #5,Tier-2 Strategic,North America,Healthcare,1500000,Low (Zero-Disruption SLA),ops-1054@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1054
+1055,Kyocera Components Global #6,Tier-2 Strategic,Central America,Aerospace,10000000,Low (Zero-Disruption SLA),ops-1055@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1055
+1056,Hitachi Rail Freight #7,Tier-2 Strategic,Eastern Asia,Automotive,25000000,Low (Zero-Disruption SLA),ops-1056@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1056
+1057,Thales Avionics Systems #8,Tier-2 Strategic,Eastern Asia,Aerospace,25000000,Flexible,ops-1057@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1057
+1058,ABB Robotics & Automation #9,Tier-1 Enterprise,Western Europe,Automotive,1500000,Flexible,ops-1058@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1058
+1059,BMW Group Central Parts #10,Tier-1 Enterprise,Western Europe,Healthcare,5000000,Low (Zero-Disruption SLA),ops-1059@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1059
+1060,Thales Avionics Systems #11,Tier-1 Enterprise,Central America,Automotive,25000000,Flexible,ops-1060@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1060
+1061,Infineon Power Systems #12,Tier-3 Commercial,Eastern Asia,Healthcare,5000000,Medium (Standard SLA),ops-1061@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1061
+1062,Airbus Global Defense #13,Tier-3 Commercial,Central America,Automotive,1500000,Flexible,ops-1062@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1062
+1063,Dassault Systèmes AI #14,Tier-1 Enterprise,Western Europe,Healthcare,5000000,Flexible,ops-1063@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1063
+1064,Bosch Continental Auto #15,Tier-2 Strategic,North America,Cloud Systems,5000000,Flexible,ops-1064@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1064
+1065,Siemens Energy Logistics #16,Tier-2 Strategic,Eastern Asia,Cloud Systems,1500000,Medium (Standard SLA),ops-1065@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1065
+1066,Sony Semiconductor EU #17,Tier-2 Strategic,Central America,Cloud Systems,25000000,Medium (Standard SLA),ops-1066@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1066
+1067,Schneider Electric Industrial #18,Tier-3 Commercial,North America,Automotive,10000000,Low (Zero-Disruption SLA),ops-1067@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1067
+1068,Kyocera Components Global #19,Tier-2 Strategic,Western Europe,Automotive,1500000,Medium (Standard SLA),ops-1068@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1068
+1069,Siemens Energy Logistics #20,Tier-2 Strategic,Eastern Asia,Aerospace,5000000,Flexible,ops-1069@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1069
+1070,Hitachi Rail Freight #21,Tier-1 Enterprise,Eastern Asia,Aerospace,10000000,Low (Zero-Disruption SLA),ops-1070@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1070
+1071,Dassault Systèmes AI #22,Tier-1 Enterprise,Eastern Asia,Aerospace,5000000,Low (Zero-Disruption SLA),ops-1071@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1071
+1072,Sony Semiconductor EU #23,Tier-2 Strategic,North America,Cloud Systems,25000000,Medium (Standard SLA),ops-1072@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1072
+1073,Pfizer Cold Chain Solutions #24,Tier-3 Commercial,North America,Cloud Systems,1500000,Medium (Standard SLA),ops-1073@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1073
+1074,Philips Healthcare Supply #25,Tier-2 Strategic,Central America,Cloud Systems,5000000,Medium (Standard SLA),ops-1074@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1074
+1075,Airbus Global Defense #26,Tier-3 Commercial,Western Europe,Automotive,1500000,Flexible,ops-1075@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1075
+1076,Siemens Energy Logistics #27,Tier-3 Commercial,Central America,Healthcare,5000000,Medium (Standard SLA),ops-1076@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1076
+1077,Philips Healthcare Supply #28,Tier-1 Enterprise,Western Europe,Healthcare,25000000,Medium (Standard SLA),ops-1077@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1077
+1078,Bosch Continental Auto #29,Tier-1 Enterprise,North America,Semiconductors,25000000,Flexible,ops-1078@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1078
+1079,Apple Logistics EMEA #30,Tier-2 Strategic,Central America,Cloud Systems,1500000,Flexible,ops-1079@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1079
+1080,BMW Group Central Parts #1,Tier-3 Commercial,Western Europe,Automotive,10000000,Low (Zero-Disruption SLA),ops-1080@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1080
+1081,Dassault Systèmes AI #2,Tier-1 Enterprise,North America,Automotive,10000000,Low (Zero-Disruption SLA),ops-1081@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1081
+1082,Apple Logistics EMEA #3,Tier-2 Strategic,Western Europe,Semiconductors,25000000,Medium (Standard SLA),ops-1082@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1082
+1083,Bosch Continental Auto #4,Tier-1 Enterprise,Western Europe,Semiconductors,10000000,Medium (Standard SLA),ops-1083@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1083
+1084,Kyocera Components Global #5,Tier-2 Strategic,Eastern Asia,Automotive,1500000,Low (Zero-Disruption SLA),ops-1084@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1084
+1085,Lufthansa Cargo Spares #6,Tier-1 Enterprise,Western Europe,Semiconductors,25000000,Medium (Standard SLA),ops-1085@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1085
+1086,BMW Group Central Parts #7,Tier-1 Enterprise,North America,Healthcare,1500000,Low (Zero-Disruption SLA),ops-1086@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1086
+1087,Airbus Global Defense #8,Tier-3 Commercial,Eastern Asia,Aerospace,10000000,Flexible,ops-1087@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1087
+1088,TSMC European Foundry #9,Tier-3 Commercial,Western Europe,Semiconductors,1500000,Medium (Standard SLA),ops-1088@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1088
+1089,Schneider Electric Industrial #10,Tier-1 Enterprise,Central America,Semiconductors,25000000,Medium (Standard SLA),ops-1089@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1089
+1090,Schneider Electric Industrial #11,Tier-1 Enterprise,North America,Automotive,5000000,Medium (Standard SLA),ops-1090@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1090
+1091,Lufthansa Cargo Spares #12,Tier-1 Enterprise,Central America,Semiconductors,25000000,Low (Zero-Disruption SLA),ops-1091@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1091
+1092,Dassault Systèmes AI #13,Tier-2 Strategic,North America,Semiconductors,10000000,Flexible,ops-1092@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1092
+1093,ABB Robotics & Automation #14,Tier-3 Commercial,Eastern Asia,Aerospace,1500000,Flexible,ops-1093@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1093
+1094,BMW Group Central Parts #15,Tier-3 Commercial,Western Europe,Semiconductors,10000000,Flexible,ops-1094@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1094
+1095,Philips Healthcare Supply #16,Tier-1 Enterprise,Eastern Asia,Semiconductors,5000000,Flexible,ops-1095@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1095
+1096,Apple Logistics EMEA #17,Tier-2 Strategic,North America,Healthcare,10000000,Medium (Standard SLA),ops-1096@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1096
+1097,Apple Logistics EMEA #18,Tier-3 Commercial,North America,Semiconductors,1500000,Flexible,ops-1097@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1097
+1098,ASML Lithography Parts #19,Tier-1 Enterprise,North America,Healthcare,1500000,Low (Zero-Disruption SLA),ops-1098@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1098
+1099,BMW Group Central Parts #20,Tier-2 Strategic,Central America,Aerospace,5000000,Flexible,ops-1099@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1099
+1100,Lufthansa Cargo Spares #21,Tier-3 Commercial,Eastern Asia,Aerospace,1500000,Flexible,ops-1100@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1100
+1101,Honeywell Aerospace Parts #22,Tier-2 Strategic,Western Europe,Semiconductors,1500000,Low (Zero-Disruption SLA),ops-1101@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1101
+1102,Pfizer Cold Chain Solutions #23,Tier-2 Strategic,Western Europe,Semiconductors,1500000,Low (Zero-Disruption SLA),ops-1102@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1102
+1103,Airbus Global Defense #24,Tier-2 Strategic,North America,Automotive,1500000,Medium (Standard SLA),ops-1103@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1103
+1104,TSMC European Foundry #25,Tier-1 Enterprise,Central America,Semiconductors,5000000,Low (Zero-Disruption SLA),ops-1104@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1104
+1105,Honeywell Aerospace Parts #26,Tier-3 Commercial,North America,Cloud Systems,25000000,Low (Zero-Disruption SLA),ops-1105@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1105
+1106,Lufthansa Cargo Spares #27,Tier-2 Strategic,Central America,Automotive,5000000,Medium (Standard SLA),ops-1106@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1106
+1107,Thales Avionics Systems #28,Tier-1 Enterprise,Eastern Asia,Semiconductors,1500000,Flexible,ops-1107@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1107
+1108,ASML Lithography Parts #29,Tier-3 Commercial,Eastern Asia,Cloud Systems,25000000,Flexible,ops-1108@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1108
+1109,TSMC European Foundry #30,Tier-1 Enterprise,Central America,Automotive,1500000,Flexible,ops-1109@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1109
+1110,STMicroelectronics SAS #1,Tier-2 Strategic,Eastern Asia,Healthcare,25000000,Flexible,ops-1110@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1110
+1111,Kyocera Components Global #2,Tier-1 Enterprise,Western Europe,Aerospace,1500000,Low (Zero-Disruption SLA),ops-1111@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1111
+1112,Kyocera Components Global #3,Tier-1 Enterprise,Eastern Asia,Healthcare,5000000,Low (Zero-Disruption SLA),ops-1112@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1112
+1113,ASML Lithography Parts #4,Tier-2 Strategic,Western Europe,Aerospace,10000000,Flexible,ops-1113@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1113
+1114,Infineon Power Systems #5,Tier-2 Strategic,Central America,Semiconductors,5000000,Medium (Standard SLA),ops-1114@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1114
+1115,Thales Avionics Systems #6,Tier-2 Strategic,North America,Semiconductors,25000000,Flexible,ops-1115@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1115
+1116,ABB Robotics & Automation #7,Tier-1 Enterprise,Western Europe,Aerospace,1500000,Medium (Standard SLA),ops-1116@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1116
+1117,Bosch Continental Auto #8,Tier-3 Commercial,Eastern Asia,Aerospace,25000000,Flexible,ops-1117@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1117
+1118,Kyocera Components Global #9,Tier-3 Commercial,Eastern Asia,Automotive,5000000,Medium (Standard SLA),ops-1118@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1118
+1119,STMicroelectronics SAS #10,Tier-2 Strategic,Eastern Asia,Cloud Systems,10000000,Medium (Standard SLA),ops-1119@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1119
+1120,Thales Avionics Systems #11,Tier-2 Strategic,Eastern Asia,Healthcare,1500000,Flexible,ops-1120@enterprise-client.ibmz.net,ACTIVE_VERIFIED,CUST-ZOS-1120

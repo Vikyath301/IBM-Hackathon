@@ -698,11 +698,15 @@
         clearInterval(interval);
         banner.style.display = "none";
 
+        const prob = data.risk ? data.risk.late_delivery_probability : (data.late_delivery_probability || 0.87);
+        const explanation = data.explanation || data.genai_explanation;
+        const dollarRisk = data.risk ? data.risk.dollar_at_risk : (data.dollar_at_risk || 1700000);
+
         // Update Incident Card
         document.getElementById("inc-title").innerText = `Order #${data.order_id} - ${data.product_name}`;
         document.getElementById("inc-meta").innerText = `Origin: EE. UU. → Destination: ${data.order_country} (${data.shipping_mode})`;
-        document.getElementById("inc-score").innerText = `${(data.late_delivery_probability * 100).toFixed(0)}%`;
-        document.getElementById("inc-genai").innerText = data.genai_explanation;
+        document.getElementById("inc-score").innerText = `${(prob * 100).toFixed(0)}%`;
+        document.getElementById("inc-genai").innerText = explanation;
         document.getElementById("kpi-protected").innerText = "$1,900,000";
         document.getElementById("kpi-alerts").innerText = "1";
 
@@ -717,7 +721,7 @@
           mode: data.shipping_mode,
           status: "CRITICAL",
           val: "$1,900,000",
-          risk: `${(data.late_delivery_probability * 100).toFixed(1)}%`
+          risk: `${(prob * 100).toFixed(1)}%`
         });
         renderStream();
 

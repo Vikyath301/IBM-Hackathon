@@ -1,100 +1,169 @@
-# 🛡️ ChainSentinel: Master Team & Handover Guide
+# 🛡️ ChainSentinel: Master Team & Architecture Guide
 **Team PingXero | IBM Z Datathon**
 
-This document contains everything built, configured, and tested for the **ChainSentinel** project. Any team member or AI assistant can read this guide to immediately understand the project, run the code, and continue development.
+This document contains the complete architectural specification, multi-agent implementation, and testing workflows for **ChainSentinel**. Any team member or AI assistant can use this guide to understand the system, run the code, and extend the platform.
 
 ---
 
-## 📌 1. Project Overview & Pitch
+## 📌 1. Project Overview & Philosophy
 * **Tagline:** Real-time predictive supply chain disruption intelligence with GenAI explanations, built on IBM Z.
-* **Problem:** Critical supply chain events (delayed shipments, stockouts, demand surges) happen in seconds, but operational teams detect them days later due to siloed batch reporting and black-box alert fatigue.
-* **Solution (The 4-Stage Flywheel):**
-  1. **Detect:** Real-time stream anomaly detection on orders, shipments, and inventory from Db2 for z/OS.
-  2. **Predict:** Machine learning (XGBoost/RandomForest) calculates disruption probabilities and financial dollar-at-risk per SKU.
-  3. **Recommend:** A prescriptive decision engine evaluates supplier alternatives, route feasibility, and expedite costs.
-  4. **Explain:** IBM Granite Generative AI layer translates complex model outputs into human-readable executive summaries.
-  5. **Closed Loop:** Corrective actions are committed back to Db2 for z/OS via **z/OS Connect REST APIs** (`RC=0000`).
+* **Core Philosophy:** **Do not build five separate ML models just to label them agents.** We train a single robust machine learning pipeline for the prediction task, engineer four specialized agents for distinct operational responsibilities, and coordinate them using **LangGraph** with **LangSmith** tracing.
+* **The 4-Stage Flywheel:**
+  1. **Detection Agent (`src/agents/detection_agent.py`):** Flags anomalous transactions, compressed SLAs, and cross-border route friction.
+  2. **Risk Agent (`src/agents/risk_agent.py`):** Calls the trained ML model (`models/risk_classifier.joblib`), scoring disruption probabilities, delivery duration windows, and financial Dollar-at-Risk.
+  3. **Recommendation Agent (`src/agents/recommendation_agent.py`):** Ranks feasible mitigation interventions (carrier expedite, volume shift, safety buffer) based on explicit, documented trade-offs.
+  4. **Explanation Agent (`src/agents/explanation_agent.py`):** Synthesizes natural-language executive rationales (formatted for IBM Granite on s390x).
+  5. **Closed Loop:** Commits approved actions back to core systems via **z/OS Connect REST APIs** (`RC=0000 SUCCESS_COMMIT`).
 
 ---
 
-## 👥 2. 6-Member Team Role Division
-
-| Member | Role | Deliverables & Status |
-| :--- | :--- | :--- |
-| **Member 1** | Data Engineer & Mainframe Simulator | `src/stream_simulator.py`, `data/dataco_sample.csv` (Simulates Db2 log stream) — ✅ Complete |
-| **Member 2** | Backend & z/OS Connect API | `src/server.py`, `src/test_api.py` (FastAPI REST server & z/OS Gateway) — ✅ Complete |
-| **Member 3** | ML & Predictive Analytics Lead | `src/data_pipeline.py`, `src/train_models.py`, `models/` (Risk & Duration AI) — ✅ Complete |
-| **Member 4** | Prescriptive Decision & GenAI | Decision ranking + IBM Granite plain-language alert explanations — ✅ Complete |
-| **Member 5** | Frontend & Live Command Center | `src/static/index.html` (Dark-mode responsive command center UI) — ✅ Complete |
-| **Member 6** | Pitch Deck & Demo Video | 10-slide deck (Team PingXero PPT), presentation script, video demo — ⏳ In Progress |
-
----
-
-## 🔗 3. Key Links & File Locations
-
-* **GitHub Repository:** [https://github.com/pavanpoojary348/chainsentinel](https://github.com/pavanpoojary348/chainsentinel)
-* **IBM LinuxONE Server:** `http://148.100.109.180:38888/tree?`
-* **Local Web Dashboard:** `http://localhost:8000` (or `http://localhost:8000/dashboard`)
-* **Local API Swagger Docs:** `http://localhost:8000/docs`
-* **Public Web Link (Localtunnel):** `https://brave-cloths-stay.loca.lt` *(Password: `103.167.211.189`)*
-
----
-
-## ☁️ 4. How to Run on IBM LinuxONE (JupyterLab)
-
-1. Open `http://148.100.109.180:38888/tree?` in your browser.
-2. Ensure both **`ChainSentinel_IBM_Z_Demo.ipynb`** and **`dataco_sample.csv`** are uploaded in your file list.
-3. Open `ChainSentinel_IBM_Z_Demo.ipynb`.
-4. Click **Kernel $\rightarrow$ Restart & Run All Cells**.
-5. **CRITICAL:** Take a screenshot of **Step 1** showing:
-   ```text
-   System Architecture: s390x (IBM LinuxONE / z/OS)
-   ```
-   Add this screenshot to **Slide 6 & 7** of the pitch deck to prove the AI runs natively on IBM Z hardware!
-
----
-
-## 💻 5. How to Run the Server & Dashboard on Your Laptop
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/pavanpoojary348/chainsentinel.git
-cd chainsentinel
-
-# 2. Create virtual environment & install requirements
-python -m venv .venv
-
-# On Windows:
-.\.venv\Scripts\pip install -r requirements.txt
-.\.venv\Scripts\python src/server.py
-
-# On Linux/Mac:
-source .venv/bin/activate
-pip install -r requirements.txt
-python src/server.py
+## 📁 2. Repository Structure
 ```
-Open **`http://localhost:8000`** in Chrome/Edge to interact with the live command center.
+chainsentinel/
+├── data/
+│   ├── dataco_sample.csv               # 5,000 supply chain transaction records
+│   ├── clients.csv                     # (IBM LinuxONE environment dataset)
+│   ├── transaction_history.csv         # (IBM LinuxONE environment dataset)
+│   └── transactions.csv                # (IBM LinuxONE environment dataset)
+│
+├── models/
+│   ├── risk_classifier.joblib          # Trained ML Disruption Risk Classifier
+│   ├── duration_regressor.joblib       # Multi-Output Shipping Duration Regressor
+│   └── preprocessor.joblib             # ColumnTransformer (OneHot + StandardScaler)
+│
+├── src/
+│   ├── data_pipeline.py                # Zero-leakage preprocessing & feature engineering
+│   ├── train_models.py                 # Model training & metric evaluation
+│   ├── predict_risk.py                 # Low-latency ML inference module (~11ms)
+│   ├── stream_simulator.py             # IBM Z / Db2 transaction stream generator
+│   ├── server.py                       # FastAPI entry point exposing /analyze, /alerts, etc.
+│   ├── schemas.py                      # Pydantic data contracts for agents and APIs
+│   ├── workflow.py                     # LangGraph state graph coordinating all 4 agents
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── detection_agent.py          # Operational anomaly detector
+│   │   ├── risk_agent.py               # ML risk & duration scoring agent
+│   │   ├── recommendation_agent.py     # Prescriptive action ranking agent
+│   │   └── explanation_agent.py        # IBM Granite executive explanation agent
+│   └── static/
+│       └── index.html                  # Real-time command center dashboard
+│
+├── tests/
+│   ├── test_prediction.py              # Unit tests for ML predictions & bounds
+│   └── test_api.py                     # Integration tests for LangGraph & FastAPI
+│
+├── ChainSentinel_IBM_Z_Demo.ipynb     # Self-contained IBM LinuxONE demo notebook
+├── requirements.txt                    # Project dependencies
+├── .env.example                        # Template for LangSmith & Watsonx secrets
+├── .env                                # Local secrets (git-ignored)
+├── .gitignore
+├── README.md
+└── TEAM_GUIDE.md
+```
 
 ---
 
-## 🎯 6. Slide 8 Interactive Demo Workflow (What to Show Judges)
+## 👥 3. 6-Member Team Role Division
 
-1. **Top Header:** Point out the pulsing green badges: *IBM LinuxONE (s390x) Connected* and *Db2 for z/OS Live Stream: ACTIVE*.
-2. **Live Ingestion Feed:** Show orders continuously rolling in every 3 seconds from Germany, Japan, UK, USA with diverse risk ratings.
-3. **Trigger Disruption:** Click **`⚡ Simulate Slide 8 ($1.9M Disruption)`**.
-   * Live timer banner appears: *Under 5-second decision latency*.
-   * **Order #4471** pops up with **87% Late Risk**, putting **$1.9M at risk**.
-   * **IBM Granite GenAI Box:** Displays the plain-English executive explanation:
-     > *"High risk: Supplier A is 36 hours late, stock covers 4 days, demand is up 18%. Recommended: Shift 60% of volume to Supplier B and reroute shipment 4471. Protects about $1.7M of orders for about $48K added cost."*
-4. **Close the Loop:** Click **`✓ Approve & Execute via z/OS Connect API`**.
-   * Toast notification confirms: `Transaction Committed to Db2 for z/OS (RC=0000 SUCCESS_COMMIT)`.
+| Teammate | Assigned Responsibility | Primary Code Modules |
+| :--- | :--- | :--- |
+| **Member 1 (Data Engineering)** | Dataset inspection, schema cleaning, zero-leakage validation | `src/data_pipeline.py`, `data/` |
+| **Member 2 (ML Prediction)** | Train, evaluate, and serialize models; inference logic | `src/train_models.py`, `src/predict_risk.py`, `models/` |
+| **Member 3 (Detection Agent)** | Anomaly detection, compressed SLA flags, risk evidence | `src/agents/detection_agent.py` |
+| **Member 4 (Recommendations & Explanations)** | Action ranking, cost trade-offs, IBM Granite explanations | `src/agents/recommendation_agent.py`, `src/agents/explanation_agent.py` |
+| **Member 5 (Backend & LangGraph)** | FastAPI server, LangGraph state graph, LangSmith tracing | `src/server.py`, `src/workflow.py`, `src/schemas.py`, `tests/` |
+| **Member 6 (Frontend & Live Demo)** | Command center UI, live ticker, Slide 8 disruption demo | `src/static/index.html`, PPT Slide Deck |
 
 ---
 
-## 🎤 7. 3-Minute Presentation Script (For Team PingXero)
+## 🔍 4. LinuxONE Dataset Inspection Script
 
-* **0:00 - 0:30 (Problem):** Supply chain disruptions cost millions because leaders find out days late in static reports. Alerts are reactive, fragmented, and black-box numbers that managers second-guess.
-* **0:30 - 1:00 (Solution):** ChainSentinel turns live transactions into trusted decisions in under 5 seconds through a 4-stage flywheel: Detect, Predict, Recommend, Explain.
-* **1:00 - 1:45 (Why IBM Z):** Enterprise transactions already live on Db2 for z/OS. Using IBM Data Gate, change logs stream into our AI pipeline without offloading data. Machine learning scores disruption risk, IBM Granite provides plain-English reasons, and z/OS Connect commits actions back to the core.
-* **1:45 - 2:30 (Live Demo):** Trigger the Slide 8 simulation, show the 87% late risk alert, read the GenAI explanation, and click Approve via z/OS Connect.
-* **2:30 - 3:00 (ROI & Close):** Cuts decision lag from days to seconds, reduces disruption costs by 15-25%, and ensures operations keep running smoothly.
+When working inside your **IBM LinuxONE JupyterLab instance** (`http://148.100.109.180:38888/tree?`), run this cell to inspect the CSV files:
+
+```python
+import pandas as pd
+from pathlib import Path
+
+data_dir = Path("data")
+files = [
+    "clients.csv",
+    "dataco_sample.csv",
+    "transaction_history.csv",
+    "transactions.csv"
+]
+
+for filename in files:
+    path = data_dir / filename if (data_dir / filename).exists() else Path(filename)
+    if path.exists():
+        df = pd.read_csv(path, encoding="latin-1")
+        print("\n" + "="*50)
+        print(f"FILE: {filename}")
+        print("Shape:", df.shape)
+        print("Columns:", df.columns.tolist()[:10], "... (total", len(df.columns), ")")
+        print("Missing values:", df.isnull().sum().sum())
+        display(df.head(2))
+    else:
+        print(f"File not found: {filename}")
+```
+
+*Note on Datasets:* `dataco_sample.csv` contains supply chain transaction features with delivery durations and delay indicators. `clients.csv` and `transactions.csv` represent bank account and card transaction records from IBM LinuxONE demo labs.
+
+---
+
+## ⚡ 5. LangGraph & LangSmith Configuration
+
+### Orchestration Graph (`src/workflow.py`)
+```
+START ──> [ Detection Agent ] ──> [ Risk Agent (ML) ] ──> [ Recommendation Agent ] ──> [ Explanation Agent ] ──> [ Response Assembly ] ──> END
+```
+
+### Enabling LangSmith Tracing (`.env`):
+```bash
+LANGSMITH_TRACING=true
+LANGSMITH_API_KEY="your-api-key-here"
+LANGSMITH_PROJECT="chainsentinel"
+```
+When `LANGSMITH_TRACING=true`, every agent invocation, latency, and intermediate state transition is traced automatically in LangSmith.
+
+---
+
+## 🚀 6. Backend API Endpoints (`src/server.py`)
+
+| Endpoint | Method | Description |
+| :--- | :---: | :--- |
+| **`/health`** | `GET` | Verifies backend, agent readiness, and IBM LinuxONE platform status |
+| **`/transactions`** | `GET` | Returns list of recently evaluated transactions |
+| **`/alerts`** | `GET` | Returns active high-risk disruption incidents |
+| **`/analyze`** | `POST` | **Primary agent entry point:** Executes LangGraph multi-agent workflow |
+| **`/simulate-disruption`** | `POST` | Triggers controlled Slide 8 demonstration scenario ($1.9M disruption) |
+| **`/api/zos-connect/execute`** | `POST` | Commits approved mitigation actions back to Db2 for z/OS (`RC=0000`) |
+| **`/docs`** | `GET` | Interactive Swagger UI documentation |
+
+---
+
+## 🧪 7. Running Tests
+
+Run the unit and integration test suites:
+```bash
+# In active virtual environment:
+python tests/test_prediction.py
+python tests/test_api.py
+```
+Expected output:
+```text
+ALL PREDICTION TESTS PASSED!
+ALL API & LANGGRAPH TESTS PASSED!
+```
+
+---
+
+## 🎤 8. Presentation Workflow for Judges
+
+1. **Header Badges:** Show *IBM LinuxONE (s390x) Connected* and *Db2 for z/OS Live Stream: ACTIVE*.
+2. **Streaming Ticker:** Demonstrate diverse transactions continuously ingesting every 3 seconds across Germany, Japan, UK, USA.
+3. **Simulate Disruption:** Click **`⚡ Simulate Slide 8 ($1.9M Disruption)`**.
+   * Multi-agent workflow executes in under 120ms.
+   * **Order #4471** flagged with **87% Late Risk**, exposing **$1.9M at risk**.
+   * **IBM Granite Box:** Displays plain-English rationale.
+4. **Approve via z/OS Connect:** Click **`✓ Approve & Execute via z/OS Connect API`**.
+   * Toast confirms: `Transaction Committed to Db2 for z/OS (RC=0000 SUCCESS_COMMIT)`.

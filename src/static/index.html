@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
       --bg-dark: #0a0e17;
@@ -450,6 +451,23 @@
       z-index: 1000;
       max-width: 420px;
     }
+
+    /* Leaflet Dark Customization */
+    .leaflet-popup-content-wrapper {
+      background: rgba(15, 23, 42, 0.95) !important;
+      color: #f1f5f9 !important;
+      border: 1px solid rgba(0, 216, 255, 0.35) !important;
+      border-radius: 10px !important;
+      backdrop-filter: blur(10px) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7) !important;
+      padding: 4px !important;
+    }
+    .leaflet-popup-tip {
+      background: rgba(15, 23, 42, 0.95) !important;
+    }
+    .leaflet-popup-close-button {
+      color: #94a3b8 !important;
+    }
   </style>
 </head>
 <body>
@@ -514,6 +532,16 @@
             <button class="btn btn-simulate" id="btn-simulate" onclick="triggerSimulation()">
               ⚡ Simulate Slide 8 ($1.9M Disruption)
             </button>
+          </div>
+        </div>
+
+        <!-- Interactive Global Supply Chain Route Map (Upgrade 1) -->
+        <div id="map-wrapper" style="height: 250px; width: 100%; border-radius: 14px; margin-bottom: 20px; overflow: hidden; border: 1px solid var(--border-color); position: relative; background: #070a10;">
+          <div id="route-map" style="height: 100%; width: 100%; z-index: 1;"></div>
+          <div style="position: absolute; bottom: 10px; left: 12px; z-index: 10; background: rgba(10, 14, 23, 0.85); padding: 5px 12px; border-radius: 6px; font-size: 11px; border: 1px solid var(--border-color); display: flex; gap: 12px; backdrop-filter: blur(6px);">
+            <span style="display: flex; align-items: center; gap: 5px;"><span style="color: var(--accent-cyan);">●</span> Normal Active Route</span>
+            <span style="display: flex; align-items: center; gap: 5px;"><span style="color: var(--accent-red);">●</span> Disruption Detected</span>
+            <span style="display: flex; align-items: center; gap: 5px;"><span style="color: var(--accent-green);">●</span> z/OS Connect Reroute</span>
           </div>
         </div>
 
@@ -617,7 +645,58 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    // Initialize Interactive Dark Leaflet Route Map (Upgrade 1)
+    const map = L.map('route-map', {
+      center: [38.0, -15.0],
+      zoom: 2,
+      minZoom: 1,
+      maxZoom: 6,
+      zoomControl: false,
+      attributionControl: false
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Global Hubs
+    const hubs = {
+      ny: { name: "New York Hub (EE. UU. Origin)", coords: [40.7128, -74.0060] },
+      paris: { name: "Paris Central (Destination - France)", coords: [48.8566, 2.3522] },
+      frankfurt: { name: "Frankfurt Regional Hub (Supplier B)", coords: [50.1109, 8.6821] },
+      london: { name: "London Gateway Hub", coords: [51.5074, -0.1278] },
+      tokyo: { name: "Tokyo APAC Distribution Hub", coords: [35.6762, 139.6503] }
+    };
+
+    // Add glowing hub markers
+    Object.values(hubs).forEach(h => {
+      L.circleMarker(h.coords, {
+        radius: 5,
+        color: '#00d8ff',
+        fillColor: '#00d8ff',
+        fillOpacity: 0.9,
+        weight: 2
+      }).addTo(map).bindTooltip(h.name, { permanent: false, direction: 'top' });
+    });
+
+    // Active Baseline Transit Routes
+    const routeUsaParis = L.polyline([hubs.ny.coords, hubs.paris.coords], {
+      color: '#00d8ff',
+      weight: 3,
+      opacity: 0.85,
+      dashArray: '6, 8'
+    }).addTo(map);
+
+    L.polyline([hubs.ny.coords, hubs.london.coords], { color: '#0066ff', weight: 2, opacity: 0.4 }).addTo(map);
+    L.polyline([hubs.london.coords, hubs.tokyo.coords], { color: '#0066ff', weight: 2, opacity: 0.4 }).addTo(map);
+
+    let disruptionMarker = null;
+    let rerouteLine = null;
+    let rerouteMarker = null;
+
     // Live Dynamic Global Transactions Stream
     let streamList = [
       { id: "TXN-88415", cat: "Medical Supplies", dest: "Germany", mode: "First Class", status: "NORMAL", val: "$3,800", risk: "14.2%" },
@@ -710,6 +789,39 @@
         document.getElementById("kpi-protected").innerText = "$1,900,000";
         document.getElementById("kpi-alerts").innerText = "1";
 
+        // Reset CTA button if previously approved
+        const btn = document.getElementById("btn-approve");
+        btn.innerText = "✓ Approve & Execute via z/OS Connect API";
+        btn.style.background = "linear-gradient(135deg, #00e676, #00b0ff)";
+        btn.style.color = "#000";
+        btn.disabled = false;
+
+        // Upgrade 1: Map animation & Disruption Corridor Highlighting
+        if (rerouteLine) { map.removeLayer(rerouteLine); rerouteLine = null; }
+        if (rerouteMarker) { map.removeLayer(rerouteMarker); rerouteMarker = null; }
+        if (disruptionMarker) { map.removeLayer(disruptionMarker); disruptionMarker = null; }
+
+        routeUsaParis.setStyle({ color: '#ff3366', weight: 4, opacity: 0.95, dashArray: '6, 6' });
+
+        disruptionMarker = L.circleMarker([46.0, -38.0], {
+          radius: 9,
+          color: '#ff3366',
+          fillColor: '#ff3366',
+          fillOpacity: 0.95,
+          weight: 3
+        }).addTo(map);
+
+        disruptionMarker.bindPopup(`
+          <div style="font-family: Outfit, sans-serif; min-width: 175px;">
+            <div style="color: #ff3366; font-weight: 700; font-size: 13px; margin-bottom: 3px;">⚠️ Transit Disruption Alert</div>
+            <div style="color: #f1f5f9; font-weight: 600; font-size: 12px;">Order #4471 Mid-Atlantic Corridor</div>
+            <div style="color: #94a3b8; font-size: 11px; margin-top: 2px;">Primary Supplier A: +36h slip</div>
+            <div style="color: #ff9100; font-weight: 600; font-size: 11px; margin-top: 4px;">Late Risk: ${(prob * 100).toFixed(0)}% • Critical</div>
+          </div>
+        `).openPopup();
+
+        map.flyTo([46.0, -35.0], 3, { duration: 1.4 });
+
         // Remove any previous Slide 8 entry to avoid repetition
         streamList = streamList.filter(item => item.id !== "TXN-4471");
 
@@ -753,6 +865,35 @@
         btn.style.background = "#334155";
         btn.style.color = "#94a3b8";
         btn.disabled = true;
+
+        // Upgrade 1: Dynamic glowing green reroute on map
+        if (rerouteLine) map.removeLayer(rerouteLine);
+        rerouteLine = L.polyline([hubs.ny.coords, hubs.frankfurt.coords], {
+          color: '#00e676',
+          weight: 4,
+          opacity: 0.95,
+          dashArray: '8, 6'
+        }).addTo(map);
+
+        if (rerouteMarker) map.removeLayer(rerouteMarker);
+        rerouteMarker = L.circleMarker(hubs.frankfurt.coords, {
+          radius: 9,
+          color: '#00e676',
+          fillColor: '#00e676',
+          fillOpacity: 1.0,
+          weight: 2
+        }).addTo(map);
+
+        rerouteMarker.bindPopup(`
+          <div style="font-family: Outfit, sans-serif; min-width: 180px;">
+            <div style="color: #00e676; font-weight: 700; font-size: 13px; margin-bottom: 3px;">✓ z/OS Commit Confirmed</div>
+            <div style="color: #f1f5f9; font-weight: 600; font-size: 12px;">Frankfurt Hub (Supplier B)</div>
+            <div style="color: #94a3b8; font-size: 11px; margin-top: 2px;">60% Shifted • Db2 RC=0</div>
+            <div style="color: #00d8ff; font-weight: 600; font-size: 11px; margin-top: 4px;">$1.7M Protected • SLA Restored</div>
+          </div>
+        `).openPopup();
+
+        map.flyTo([47.0, -28.0], 3, { duration: 1.2 });
 
         // Show toast
         const toast = document.getElementById("toast");

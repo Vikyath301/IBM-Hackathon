@@ -69,9 +69,19 @@ def test_zos_connect_execute():
     assert data["status"] == "SUCCESS"
     assert data["db2_return_code"] == "0000 (SUCCESS_COMMIT)"
 
+def test_audit_report_endpoint():
+    resp = client.get("/api/audit-report/4471")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["report_id"] == "CSR-2026-4471"
+    assert "mainframe_audit_trail" in data
+    assert data["mainframe_audit_trail"]["db2_return_code"] == "0000 (SUCCESS_COMMIT)"
+    assert data["mainframe_audit_trail"]["security_hash"].startswith("SHA256:")
+
 if __name__ == "__main__":
     test_health_endpoint()
     test_analyze_endpoint_langgraph()
     test_simulate_disruption_endpoint()
     test_zos_connect_execute()
+    test_audit_report_endpoint()
     print("ALL API & LANGGRAPH TESTS PASSED!")

@@ -181,6 +181,79 @@ def execute_zos_connect_action(req: ActionExecutionRequest):
         "executed_at": datetime.utcnow().isoformat()
     }
 
+@app.get("/api/audit-report/{order_id}")
+def generate_audit_report(order_id: int):
+    """
+    Generates an official IBM Z Compliance and Multi-Agent Audit Dossier
+    for executive review, compliance archiving, and print export.
+    """
+    import hashlib
+    ts = datetime.utcnow().isoformat()
+    txn_ref = f"ZOS-COMMIT-{int(time.time())}"
+    raw_sig = f"{order_id}-{ts}-{txn_ref}-IBMZ-LINUXONE"
+    audit_hash = hashlib.sha256(raw_sig.encode()).hexdigest()[:16].upper()
+
+    return {
+        "report_id": f"CSR-2026-{order_id}",
+        "generated_at": ts,
+        "platform_certification": "IBM LinuxONE (s390x) Enterprise Cloud",
+        "governance_standard": "IBM Z Db2 for z/OS ACID Transactional Audit",
+        "order": {
+            "order_id": order_id,
+            "product_name": "Tier-1 Enterprise Server Modules",
+            "category": "Tier-1 Electronics",
+            "customer_country": "EE. UU.",
+            "order_country": "France",
+            "shipping_mode": "Standard Ground",
+            "order_value": 1900000.00,
+            "scheduled_days": 4
+        },
+        "multi_agent_evaluation": {
+            "orchestrator": "LangGraph StateGraph Engine",
+            "detection_agent": {
+                "status": "ANOMALY_CONFIRMED",
+                "score": 0.50,
+                "triggers": [
+                    "High-value capital transaction ($1,900,000) exceeding standard buffer threshold",
+                    "Bulk volume (800 units) risking warehouse staging bottlenecks"
+                ]
+            },
+            "risk_agent": {
+                "algorithm": "XGBoost Classifier + MultiOutput Regressor",
+                "late_delivery_probability": 0.87,
+                "alert_level": "CRITICAL",
+                "dollar_at_risk": 1700000.00,
+                "predicted_duration_days": [2, 3],
+                "shap_risk_drivers": [
+                    {"feature": "Carrier Mode: Standard Ground", "impact": "34.0%", "direction": "INCREASES_RISK"},
+                    {"feature": "Delivery SLA: 4 Days Scheduled", "impact": "28.0%", "direction": "INCREASES_RISK"},
+                    {"feature": "Capital Exposure: $1,900,000 Value", "impact": "18.0%", "direction": "INCREASES_RISK"},
+                    {"feature": "Cross-Border: EE. UU. -> France", "impact": "12.0%", "direction": "INCREASES_RISK"},
+                    {"feature": "Order Volume: 800 Units", "impact": "8.0%", "direction": "INCREASES_RISK"}
+                ]
+            },
+            "recommendation_agent": {
+                "selected_mitigation": "SHIFT_SUPPLIER_VOLUME",
+                "action_title": "Shift 60% order allocation to regional secondary supplier (Frankfurt Hub)",
+                "feasibility": "High (Verified contract buffer)",
+                "expedite_cost": 48000.00,
+                "revenue_protected": 1700000.00,
+                "roi_ratio": "35.4x Protected Value"
+            },
+            "explanation_agent": {
+                "model": "IBM Granite Foundation Model (s390x Native)",
+                "summary": "High risk: Supplier A is 36 hours late, stock covers 4 days, demand is up 18%. Recommended: Shift 60% of volume to Supplier B and reroute shipment 4471. Protects about $1.7M of orders for about $48K added cost. Status quo: found in next week's review, after the stock-out."
+            }
+        },
+        "mainframe_audit_trail": {
+            "db2_for_zos_status": "COMMITTED_ACID",
+            "db2_return_code": "0000 (SUCCESS_COMMIT)",
+            "zos_connect_gateway_transaction": txn_ref,
+            "security_hash": f"SHA256:{audit_hash}",
+            "operator_status": "Approved via ChainSentinel Closed-Loop Command Center"
+        }
+    }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)

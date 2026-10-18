@@ -43,6 +43,8 @@ def test_analyze_endpoint_langgraph():
     assert "recommendations" in data
     assert "explanation" in data
     assert len(data["recommendations"]) > 0
+    assert "risk_drivers" in data["risk"]
+    assert len(data["risk"]["risk_drivers"]) > 0
 
 def test_simulate_disruption_endpoint():
     resp = client.post("/simulate-disruption")
@@ -51,6 +53,8 @@ def test_simulate_disruption_endpoint():
     assert data["order_id"] == 4471
     assert data["risk"]["late_delivery_probability"] == 0.87
     assert data["risk"]["alert_level"] == "CRITICAL"
+    assert "risk_drivers" in data["risk"]
+    assert len(data["risk"]["risk_drivers"]) == 5
 
 def test_zos_connect_execute():
     payload = {

@@ -28,6 +28,12 @@ class AnomalyDetectionResult(BaseModel):
     anomaly_score: float = Field(description="Normalized anomaly score between 0.0 and 1.0")
     anomaly_reasons: List[str] = Field(default_factory=list, description="Specific triggers or suspicious factors")
 
+class RiskDriver(BaseModel):
+    feature: str = Field(description="Feature or factor name")
+    impact_pct: float = Field(description="Percentage contribution to the risk score")
+    direction: str = Field(default="INCREASES_RISK", description="INCREASES_RISK or REDUCES_RISK")
+    description: str = Field(default="", description="Contextual description of why this feature drives risk")
+
 class RiskAssessmentResult(BaseModel):
     late_delivery_probability: float = Field(description="ML-predicted delay probability [0.0 - 1.0]")
     is_high_risk: bool = Field(description="Binary threshold flag (probability >= 0.5)")
@@ -36,6 +42,7 @@ class RiskAssessmentResult(BaseModel):
     fastest_predicted_days: int = Field(description="Predicted expedited arrival days")
     normal_predicted_days: int = Field(description="Predicted standard arrival days")
     primary_risk_factors: List[str] = Field(default_factory=list, description="Key features driving the risk prediction")
+    risk_drivers: List[RiskDriver] = Field(default_factory=list, description="SHAP feature attribution breakdown")
 
 class ActionOption(BaseModel):
     rank: int

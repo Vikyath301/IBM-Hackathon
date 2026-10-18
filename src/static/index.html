@@ -322,6 +322,116 @@
       font-family: var(--font-mono);
     }
 
+    /* Explainable AI / SHAP Risk Drivers (Upgrade 2) */
+    .xai-container {
+      background: rgba(10, 15, 28, 0.75);
+      border: 1px solid rgba(0, 216, 255, 0.2);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 18px 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .xai-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .xai-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .xai-badge {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      background: rgba(0, 216, 255, 0.12);
+      border: 1px solid rgba(0, 216, 255, 0.3);
+      color: var(--accent-cyan);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .driver-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .driver-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .driver-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+    }
+
+    .driver-name {
+      color: #e2e8f0;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .driver-pct {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .driver-pct.danger {
+      color: #ff4d6d;
+    }
+
+    .driver-pct.safe {
+      color: var(--accent-green);
+    }
+
+    .driver-bar-bg {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .driver-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .driver-bar-fill.danger {
+      background: linear-gradient(90deg, #ff9100, #ff3366);
+      box-shadow: 0 0 8px rgba(255, 51, 102, 0.35);
+    }
+
+    .driver-bar-fill.safe {
+      background: linear-gradient(90deg, #0066ff, #00e676);
+      box-shadow: 0 0 8px rgba(0, 230, 118, 0.35);
+    }
+
+    .driver-subtext {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
     .genai-box {
       background: rgba(0, 102, 255, 0.08);
       border-left: 4px solid var(--accent-cyan);
@@ -583,6 +693,72 @@
             </div>
           </div>
 
+          <!-- Explainable AI (SHAP Risk Drivers) - Upgrade 2 -->
+          <div class="xai-container">
+            <div class="xai-header">
+              <div class="xai-title">
+                <span>⚡</span> ML Feature Attribution (SHAP Drivers)
+              </div>
+              <span class="xai-badge">XGBoost Tree SHAP</span>
+            </div>
+            <div class="driver-list" id="xai-drivers-list">
+              <div class="driver-item">
+                <div class="driver-top">
+                  <span class="driver-name">● Carrier Mode: Standard Ground</span>
+                  <span class="driver-pct danger">+34% Risk</span>
+                </div>
+                <div class="driver-bar-bg">
+                  <div class="driver-bar-fill danger" style="width: 34%;"></div>
+                </div>
+                <div class="driver-subtext">Elevated latency variance on Western Europe ground corridors</div>
+              </div>
+
+              <div class="driver-item">
+                <div class="driver-top">
+                  <span class="driver-name">● Delivery SLA: 4 Days Scheduled</span>
+                  <span class="driver-pct danger">+28% Risk</span>
+                </div>
+                <div class="driver-bar-bg">
+                  <div class="driver-bar-fill danger" style="width: 28%;"></div>
+                </div>
+                <div class="driver-subtext">Compressed delivery window leaves no buffer for supplier slip</div>
+              </div>
+
+              <div class="driver-item">
+                <div class="driver-top">
+                  <span class="driver-name">● Capital Exposure: $1,900,000</span>
+                  <span class="driver-pct danger">+18% Risk</span>
+                </div>
+                <div class="driver-bar-bg">
+                  <div class="driver-bar-fill danger" style="width: 18%;"></div>
+                </div>
+                <div class="driver-subtext">Tier-1 enterprise microchip modules require active mitigation</div>
+              </div>
+
+              <div class="driver-item">
+                <div class="driver-top">
+                  <span class="driver-name">● Cross-Border: USA → France</span>
+                  <span class="driver-pct danger">+12% Risk</span>
+                </div>
+                <div class="driver-bar-bg">
+                  <div class="driver-bar-fill danger" style="width: 12%;"></div>
+                </div>
+                <div class="driver-subtext">Transatlantic air/sea cargo connection and customs entry</div>
+              </div>
+
+              <div class="driver-item">
+                <div class="driver-top">
+                  <span class="driver-name">● Order Volume: 800 Units</span>
+                  <span class="driver-pct danger">+8% Risk</span>
+                </div>
+                <div class="driver-bar-bg">
+                  <div class="driver-bar-fill danger" style="width: 8%;"></div>
+                </div>
+                <div class="driver-subtext">Pallet-level staging required at origin hub</div>
+              </div>
+            </div>
+          </div>
+
           <!-- GenAI Explanation Box (Member 4) -->
           <div class="genai-box">
             <div class="genai-tag">
@@ -796,6 +972,28 @@
         document.getElementById("inc-genai").innerText = explanation;
         document.getElementById("kpi-protected").innerText = "$1,900,000";
         document.getElementById("kpi-alerts").innerText = "1";
+
+        // Upgrade 2: Dynamically update XAI SHAP Driver Bars
+        if (data.risk && data.risk.risk_drivers && data.risk.risk_drivers.length > 0) {
+          const xaiContainer = document.getElementById("xai-drivers-list");
+          xaiContainer.innerHTML = data.risk.risk_drivers.map(d => {
+            const isDanger = d.direction === "INCREASES_RISK";
+            const badgeClass = isDanger ? "danger" : "safe";
+            const sign = isDanger ? "+" : "-";
+            return `
+              <div class="driver-item">
+                <div class="driver-top">
+                  <span class="driver-name">● ${d.feature}</span>
+                  <span class="driver-pct ${badgeClass}">${sign}${d.impact_pct}% Risk</span>
+                </div>
+                <div class="driver-bar-bg">
+                  <div class="driver-bar-fill ${badgeClass}" style="width: ${d.impact_pct}%;"></div>
+                </div>
+                <div class="driver-subtext">${d.description}</div>
+              </div>
+            `;
+          }).join('');
+        }
 
         // Reset CTA button if previously approved
         const btn = document.getElementById("btn-approve");

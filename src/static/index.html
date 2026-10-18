@@ -508,6 +508,168 @@
       animation: pulse 1s infinite;
     }
 
+    /* What-If Scenario Sandbox (Upgrade 3) */
+    .whatif-panel {
+      margin-top: 30px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .whatif-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .whatif-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #e2e8f0;
+    }
+
+    .control-value-badge {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      background: rgba(0, 216, 255, 0.1);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 216, 255, 0.25);
+    }
+
+    .slider-input {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      outline: none;
+      transition: background 0.2s;
+    }
+
+    .slider-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--accent-cyan);
+      transition: transform 0.15s;
+    }
+
+    .slider-input::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .select-input {
+      width: 100%;
+      background: rgba(10, 15, 28, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #f1f5f9;
+      font-family: var(--font-main);
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .select-input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .whatif-preview-card {
+      background: rgba(10, 15, 28, 0.75);
+      border: 1px solid rgba(0, 216, 255, 0.25);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .preview-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .preview-stat-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .preview-stat-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .preview-stat-val {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .btn-apply-whatif {
+      background: linear-gradient(135deg, #0066ff, #00d8ff);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 18px rgba(0, 102, 255, 0.35);
+    }
+
+    .btn-apply-whatif:hover {
+      box-shadow: 0 6px 24px rgba(0, 102, 255, 0.55);
+      transform: translateY(-1px);
+    }
+
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
       header {
@@ -809,6 +971,111 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- What-If Scenario Sandbox (Upgrade 3) -->
+    <div class="whatif-panel">
+      <div class="panel-header" style="margin-bottom: 0;">
+        <div class="panel-title">
+          <span style="color: var(--accent-cyan)">🎛️</span> Interactive "What-If" Supply Chain Sandbox
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted); font-family: var(--font-mono); display: flex; align-items: center; gap: 8px;">
+          <span style="color: var(--accent-green)">●</span> Real-Time Multi-Agent Re-evaluation
+        </div>
+      </div>
+
+      <div class="whatif-grid">
+        <!-- Controls Column -->
+        <div class="whatif-controls">
+          <!-- Control 1: Delay Hours -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Primary Supplier A Delay Variance:</span>
+              <span class="control-value-badge" id="lbl-delay">+36 Hours</span>
+            </div>
+            <input type="range" class="slider-input" id="input-delay" min="0" max="72" value="36" step="2" oninput="updateWhatIf()">
+            <div style="font-size: 11px; color: var(--text-muted);">Baseline: 0h = on schedule; 36h = Slide 8 bottleneck threshold; 72h = complete stockout</div>
+          </div>
+
+          <!-- Control 2: Freight Mode -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Carrier Freight Tier:</span>
+              <span class="control-value-badge" id="lbl-mode">Standard Ground</span>
+            </div>
+            <select class="select-input" id="input-mode" onchange="updateWhatIf()">
+              <option value="Standard Ground" selected>Standard Ground (Default Corridors)</option>
+              <option value="Second Class">Second Class (Expedited Ground)</option>
+              <option value="First Class">First Class Air Cargo (High Velocity)</option>
+              <option value="Same Day">Same Day Dedicated Courier</option>
+            </select>
+          </div>
+
+          <!-- Control 3: Capital Exposure -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Transaction Capital Exposure:</span>
+              <span class="control-value-badge" id="lbl-value">$1,900,000</span>
+            </div>
+            <input type="range" class="slider-input" id="input-value" min="50000" max="3000000" value="1900000" step="50000" oninput="updateWhatIf()">
+            <div style="font-size: 11px; color: var(--text-muted);">Simulates financial criticality: Tier-1 microchips ($1.9M) vs standard component batches</div>
+          </div>
+
+          <!-- Control 4: SLA Scheduled Window -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Target Delivery SLA Window:</span>
+              <span class="control-value-badge" id="lbl-sla">4 Days Scheduled</span>
+            </div>
+            <input type="range" class="slider-input" id="input-sla" min="1" max="7" value="4" step="1" oninput="updateWhatIf()">
+            <div style="font-size: 11px; color: var(--text-muted);">Tighter SLA windows compress buffer margin, driving late probability up</div>
+          </div>
+        </div>
+
+        <!-- Real-Time Evaluation Preview Column -->
+        <div class="whatif-preview-card">
+          <div>
+            <div class="preview-header">
+              <span style="font-size: 13px; font-weight: 600; color: #f1f5f9; text-transform: uppercase; letter-spacing: 0.5px;">
+                ⚡ Live Stress-Test Output
+              </span>
+              <span class="badge badge-critical" id="whatif-badge">CRITICAL DISRUPTION</span>
+            </div>
+
+            <div class="preview-stats-grid">
+              <div class="preview-stat-box">
+                <div class="preview-stat-label">Predicted Late Risk</div>
+                <div class="preview-stat-val" id="whatif-prob" style="color: var(--accent-red);">87.0%</div>
+              </div>
+              <div class="preview-stat-box">
+                <div class="preview-stat-label">Value at Risk</div>
+                <div class="preview-stat-val" id="whatif-var" style="color: var(--accent-cyan);">$1,653,000</div>
+              </div>
+              <div class="preview-stat-box">
+                <div class="preview-stat-label">Estimated Transit Days</div>
+                <div class="preview-stat-val" id="whatif-days" style="color: #cbd5e1;">2 - 4 Days</div>
+              </div>
+              <div class="preview-stat-box">
+                <div class="preview-stat-label">Model Inference Latency</div>
+                <div class="preview-stat-val" id="whatif-lat" style="color: var(--accent-green);">11.2 ms</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 12px; margin-bottom: 16px;">
+              <div style="font-size: 11px; color: var(--accent-cyan); font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">
+                AI Prescriptive Strategy
+              </div>
+              <div id="whatif-strategy" style="font-size: 12.5px; color: #e2e8f0; line-height: 1.4;">
+                Shift 60% of volume to verified Supplier B (Frankfurt) and reroute shipment via z/OS Connect API.
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-apply-whatif" onclick="applyWhatIfToIncident()">
+            <span>⚡ Apply Parameters to Active Incident & Map</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1113,6 +1380,175 @@
         alert("Action committed to IBM Z Db2!");
       }
     }
+
+    // Upgrade 3: Interactive What-If Scenario Simulator Logic
+    let whatIfDebounce = null;
+    let latestWhatIfData = null;
+
+    async function updateWhatIf() {
+      const delay = parseInt(document.getElementById("input-delay").value);
+      const mode = document.getElementById("input-mode").value;
+      const sales = parseFloat(document.getElementById("input-value").value);
+      const sla = parseInt(document.getElementById("input-sla").value);
+
+      document.getElementById("lbl-delay").innerText = delay === 0 ? "0h (On Schedule)" : `+${delay} Hours`;
+      document.getElementById("lbl-mode").innerText = mode;
+      document.getElementById("lbl-value").innerText = `$${sales.toLocaleString()}`;
+      document.getElementById("lbl-sla").innerText = `${sla} Days Scheduled`;
+
+      clearTimeout(whatIfDebounce);
+      whatIfDebounce = setTimeout(async () => {
+        try {
+          const payload = {
+            order_id: 4471,
+            product_name: "Tier-1 Enterprise Server Modules",
+            category_name: "Tier-1 Electronics",
+            shipping_mode: mode,
+            customer_country: "EE. UU.",
+            order_country: "France",
+            order_region: "Western Europe",
+            scheduled_days: sla,
+            order_item_quantity: 800,
+            order_value: sales
+          };
+
+          const t0 = performance.now();
+          const res = await fetch('/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          const t1 = performance.now();
+
+          // Incorporate supplier delay variance into final evaluated disruption risk
+          let prob = data.risk.late_delivery_probability;
+          if (delay > 24) {
+            prob = Math.min(0.96, prob + (delay - 24) * 0.007);
+          } else if (delay < 12) {
+            prob = Math.max(0.12, prob - (24 - delay) * 0.012);
+          }
+
+          const dollarRisk = Math.round(prob * sales);
+          const isCritical = prob >= 0.70;
+          const isWarning = prob >= 0.45 && prob < 0.70;
+          const status = isCritical ? "CRITICAL" : isWarning ? "WARNING" : "NORMAL";
+
+          latestWhatIfData = {
+            prob: prob,
+            status: status,
+            dollarRisk: dollarRisk,
+            sales: sales,
+            mode: mode,
+            delay: delay,
+            sla: sla,
+            fastest: data.risk.fastest_predicted_days || 1,
+            normal: data.risk.normal_predicted_days || Math.max(2, sla),
+            explanation: data.explanation,
+            drivers: data.risk.risk_drivers,
+            recommendations: data.recommendations
+          };
+
+          // Update Simulator Preview UI
+          const probEl = document.getElementById("whatif-prob");
+          probEl.innerText = `${(prob * 100).toFixed(1)}%`;
+          probEl.style.color = isCritical ? "var(--accent-red)" : isWarning ? "var(--accent-orange)" : "var(--accent-green)";
+
+          const badgeEl = document.getElementById("whatif-badge");
+          badgeEl.className = `badge badge-${status.toLowerCase()}`;
+          badgeEl.innerText = `${status} ${isCritical ? 'DISRUPTION' : isWarning ? 'ELEVATED' : 'STABLE'}`;
+
+          document.getElementById("whatif-var").innerText = `$${dollarRisk.toLocaleString()}`;
+          document.getElementById("whatif-days").innerText = `${latestWhatIfData.fastest} - ${latestWhatIfData.normal} Days`;
+          document.getElementById("whatif-lat").innerText = `${(t1 - t0).toFixed(1)} ms`;
+
+          const stratEl = document.getElementById("whatif-strategy");
+          if (isCritical) {
+            stratEl.innerText = "Shift 60% volume to verified secondary Supplier B (Frankfurt) and reroute via z/OS Connect API.";
+          } else if (isWarning) {
+            stratEl.innerText = "SLA buffer tight: expedite carrier tier or monitor Db2 inventory buffer at Paris hub.";
+          } else {
+            stratEl.innerText = "Standard fulfillment parameters: order on-schedule, no mainframe reroute intervention required.";
+          }
+
+        } catch (e) {
+          console.error("What-if evaluation failed:", e);
+        }
+      }, 120);
+    }
+
+    function applyWhatIfToIncident() {
+      if (!latestWhatIfData) return;
+      
+      const d = latestWhatIfData;
+      // Update Main Incident Card
+      document.getElementById("inc-score").innerText = `${(d.prob * 100).toFixed(0)}%`;
+      document.getElementById("inc-meta").innerText = `Origin: EE. UU. → Destination: France (${d.mode})`;
+      document.getElementById("incident-badge").className = `badge badge-${d.status.toLowerCase()}`;
+      document.getElementById("incident-badge").innerText = `${d.status} ${d.status === 'CRITICAL' ? 'DISRUPTION' : 'PREDICTION'}`;
+      document.getElementById("kpi-protected").innerText = `$${d.sales.toLocaleString()}`;
+      
+      // Update GenAI explanation
+      document.getElementById("inc-genai").innerText = d.explanation;
+
+      // Update SHAP drivers if available
+      if (d.drivers && d.drivers.length > 0) {
+        const xaiContainer = document.getElementById("xai-drivers-list");
+        xaiContainer.innerHTML = d.drivers.map(drv => {
+          const isDanger = drv.direction === "INCREASES_RISK";
+          const badgeClass = isDanger ? "danger" : "safe";
+          const sign = isDanger ? "+" : "-";
+          return `
+            <div class="driver-item">
+              <div class="driver-top">
+                <span class="driver-name">● ${drv.feature}</span>
+                <span class="driver-pct ${badgeClass}">${sign}${drv.impact_pct}% Risk</span>
+              </div>
+              <div class="driver-bar-bg">
+                <div class="driver-bar-fill ${badgeClass}" style="width: ${drv.impact_pct}%;"></div>
+              </div>
+              <div class="driver-subtext">${drv.description}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update Map based on risk state
+      if (d.prob >= 0.50) {
+        routeUsaParis.setStyle({ color: '#ff3366', weight: 4, opacity: 0.95, dashArray: '6, 6' });
+        if (!disruptionMarker) {
+          disruptionMarker = L.circleMarker([46.0, -38.0], {
+            radius: 9, color: '#ff3366', fillColor: '#ff3366', fillOpacity: 0.95, weight: 3
+          }).addTo(map);
+        }
+        map.flyTo([46.0, -35.0], 3, { duration: 1.2 });
+      } else {
+        routeUsaParis.setStyle({ color: '#00d8ff', weight: 3, opacity: 0.85, dashArray: '6, 8' });
+        if (disruptionMarker) {
+          map.removeLayer(disruptionMarker);
+          disruptionMarker = null;
+        }
+        if (rerouteLine) {
+          map.removeLayer(rerouteLine);
+          rerouteLine = null;
+        }
+        if (rerouteMarker) {
+          map.removeLayer(rerouteMarker);
+          rerouteMarker = null;
+        }
+        map.flyTo([38.0, -15.0], 2, { duration: 1.2 });
+      }
+
+      // Show toast confirmation
+      const toast = document.getElementById("toast");
+      document.getElementById("toast-msg").innerText = `Applied What-If parameters: ${d.mode}, ${d.delay}h delay, $${d.sales.toLocaleString()} Value.`;
+      document.getElementById("toast-txnid").innerText = `Risk Level: ${(d.prob * 100).toFixed(1)}% (${d.status})`;
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 4000);
+    }
+
+    // Trigger initial what-if sync
+    updateWhatIf();
   </script>
 </body>
 </html>
